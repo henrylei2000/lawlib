@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Law Library - Howard University School of Law</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        #map {
+            width: 1000px;
+            height: 780px;
+        }
+    </style>
+
+    
+</head>
+<body>
+<h1>Law Libary, Howard University School of Law</h1>
+<div id='map'></div>
+
+<script>
+    var floor_1 = L.layerGroup();
+    var polygon = L.polygon([
+        [38.94334945190998, -77.05899998545648],
+        [38.94335049497788, -77.05877870321274],
+        [38.94324410197156, -77.05878138542177],
+        [38.94323367127605, -77.05896377563478]
+    ]).bindPopup('Reading Room 1').addTo(floor_1).bindTooltip("Reading Room 1", {permanent: true, direction:"center"}).openTooltip();
+
+
+    var floor_2 = L.layerGroup();
+    var polygon = L.polygon([
+        [38.943347365774095, -77.0587331056595],
+        [38.943348408842034, -77.05857753753664],
+        [38.94324305890206, -77.05859363079072],
+        [38.94324931731872, -77.05873176455498]
+    ], {color: 'red'}).bindPopup('Books DE - ZZ').addTo(floor_2).bindTooltip("Books DE - ZZ", {permanent: true, direction:"center"}).openTooltip();
+    var polygon = L.polygon([
+        [38.94334945190998, -77.05899998545648],
+        [38.94335049497788, -77.05877870321274],
+        [38.94324410197156, -77.05878138542177],
+        [38.94323367127605, -77.05896377563478]
+    ], {color: 'red'}).bindPopup('Reading Room 2').addTo(floor_2).bindTooltip("Reading Room 2", {permanent: true, direction:"center"}).openTooltip();
+
+    var floor_base = L.layerGroup();
+    var polygon = L.polygon([
+        [38.94334945190998, -77.05899998545648],
+        [38.94335049497788, -77.05877870321274],
+        [38.94324410197156, -77.05878138542177],
+        [38.94323367127605, -77.05896377563478]
+    ], {color: 'indigo'}).bindPopup('<a href="http://library.law.howard.edu/index">Books AA-DN</a>').addTo(floor_base).bindTooltip("Books AA-DN", {permanent: true, direction:"center"}).openTooltip();
+    var polygon = L.polygon([
+        [38.94310328745296, -77.05816984176637],
+        [38.94298437719726, -77.05807596445085],
+        [38.942921792772026, -77.0582288503647],
+        [38.9430480046396, -77.05830395221712]
+    ], {color: 'indigo'}).bindPopup('<a href="http://library.law.howard.edu/index">Media Room</a>').addTo(floor_base).bindTooltip("Media Room", {permanent: true, direction:"center"}).openTooltip();
+
+
+    var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+    var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, minZoom: 15, maxZoom:22, zoomOffset: -1, attribution: mbAttr}),
+        streets  = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, minZoom: 15, maxZoom:22, zoomOffset: -1, attribution: mbAttr});
+
+    var map = L.map('map', {
+        center: [38.9431859,-77.0585945],
+        zoom: 20,
+        layers: [grayscale, floor_base]
+    });
+
+
+
+    var baseLayers = {
+        /*"Grayscale": grayscale,
+        "Streets": streets,*/
+        "2nd Floor": floor_2,
+        "1st Floor": floor_1,
+        "Underground": floor_base
+    };
+
+    var overlays = {
+        // "Study Area": cities
+    };
+
+    L.control.layers(baseLayers, overlays).addTo(map);
+
+    map.on('click', function(e) {
+        alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+    });
+
+    document.getElementsByClassName('leaflet-control-attribution')[0].style.display = 'none';
+
+
+</script>
+
+
+
+</body>
+</html>

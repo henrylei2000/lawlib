@@ -38,42 +38,50 @@
 <div id='map'></div>
 
 <script>
+    var floor_2 = L.layerGroup();
+    var polygon = L.polygon([
+        [38.94334945190998, -77.05899998545648],
+        [38.94335049497788, -77.05877870321274],
+        [38.94324410197156, -77.05878138542177],
+        [38.94323367127605, -77.05896377563478]
+    ]).bindPopup('Reading Room 1').addTo(floor_2).bindTooltip("Reading Room 1", {permanent: true, direction:"center"}).openTooltip();
+
+
+    var floor_3 = L.layerGroup();
+    var polygon = L.polygon([
+        [38.943347365774095, -77.0587331056595],
+        [38.943348408842034, -77.05857753753664],
+        [38.94324305890206, -77.05859363079072],
+        [38.94324931731872, -77.05873176455498]
+    ], {color: 'red'}).bindPopup('Books DE - ZZ').addTo(floor_3).bindTooltip("Books DE - ZZ", {permanent: true, direction:"center"}).openTooltip();
+    var polygon = L.polygon([
+        [38.94334945190998, -77.05899998545648],
+        [38.94335049497788, -77.05877870321274],
+        [38.94324410197156, -77.05878138542177],
+        [38.94323367127605, -77.05896377563478]
+    ], {color: 'red'}).bindPopup('Reading Room 2').addTo(floor_3).bindTooltip("Reading Room 2", {permanent: true, direction:"center"}).openTooltip();
+
+    var floor_4 = L.layerGroup();
+    var polygon = L.polygon([
+        [38.94334945190998, -77.05899998545648],
+        [38.94335049497788, -77.05877870321274],
+        [38.94324410197156, -77.05878138542177],
+        [38.94323367127605, -77.05896377563478]
+    ]).bindPopup('Reading Room 3').addTo(floor_4).bindTooltip("Reading Room 3", {permanent: true, direction:"center"}).openTooltip();
+
     var floor_1 = L.layerGroup();
     var polygon = L.polygon([
         [38.94334945190998, -77.05899998545648],
         [38.94335049497788, -77.05877870321274],
         [38.94324410197156, -77.05878138542177],
         [38.94323367127605, -77.05896377563478]
-    ]).bindPopup('Reading Room 1').addTo(floor_1).bindTooltip("Reading Room 1", {permanent: true, direction:"center"}).openTooltip();
-
-
-    var floor_2 = L.layerGroup();
-    var polygon = L.polygon([
-        [38.943347365774095, -77.0587331056595],
-        [38.943348408842034, -77.05857753753664],
-        [38.94324305890206, -77.05859363079072],
-        [38.94324931731872, -77.05873176455498]
-    ], {color: 'red'}).bindPopup('Books DE - ZZ').addTo(floor_2).bindTooltip("Books DE - ZZ", {permanent: true, direction:"center"}).openTooltip();
-    var polygon = L.polygon([
-        [38.94334945190998, -77.05899998545648],
-        [38.94335049497788, -77.05877870321274],
-        [38.94324410197156, -77.05878138542177],
-        [38.94323367127605, -77.05896377563478]
-    ], {color: 'red'}).bindPopup('Reading Room 2').addTo(floor_2).bindTooltip("Reading Room 2", {permanent: true, direction:"center"}).openTooltip();
-
-    var floor_base = L.layerGroup();
-    var polygon = L.polygon([
-        [38.94334945190998, -77.05899998545648],
-        [38.94335049497788, -77.05877870321274],
-        [38.94324410197156, -77.05878138542177],
-        [38.94323367127605, -77.05896377563478]
-    ], {color: 'indigo'}).bindPopup('<a href="http://library.law.howard.edu/index">Books AA-DN</a>').addTo(floor_base).bindTooltip("Books AA-DN", {permanent: true, direction:"center"}).openTooltip();
+    ], {color: 'indigo'}).bindPopup('<a href="http://library.law.howard.edu/index">Books AA-DN</a>').addTo(floor_1).bindTooltip("Books AA-DN", {permanent: true, direction:"center"}).openTooltip();
     var polygon = L.polygon([
         [38.94310328745296, -77.05816984176637],
         [38.94298437719726, -77.05807596445085],
         [38.942921792772026, -77.0582288503647],
         [38.9430480046396, -77.05830395221712]
-    ], {color: 'indigo'}).bindPopup('<a href="http://library.law.howard.edu/index">Media Room</a>').addTo(floor_base).bindTooltip("Media Room", {permanent: true, direction:"center"}).openTooltip();
+    ], {color: 'indigo'}).bindPopup('<a href="http://library.law.howard.edu/index">Media Room</a>').addTo(floor_1).bindTooltip("Media Room", {permanent: true, direction:"center"}).openTooltip();
 
 
     var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -87,7 +95,7 @@
     var map = L.map('map', {
         center: [38.9431859,-77.0585945],
         zoom: 20,
-        layers: [grayscale, floor_base]
+        layers: [grayscale, floor_1]
     });
 
 
@@ -95,9 +103,10 @@
     var baseLayers = {
         /*"Grayscale": grayscale,
         "Streets": streets,*/
+        "4th Floor": floor_4,
+        "3rd Floor": floor_3,
         "2nd Floor": floor_2,
-        "1st Floor": floor_1,
-        "Underground": floor_base
+        "1st Floor": floor_1
     };
 
     var overlays = {
